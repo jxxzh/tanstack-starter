@@ -1,0 +1,10 @@
+---
+alwaysApply: true
+---
+
+## Specific Rules for Current Project
+
+1. Use `pnpm` as the package manager.
+2. Use `Tanstack Start` as the base full-stack framework.
+3. Use `Jotai` as the state management library.
+4. When adding shadcn components, use the `@basecn` registry by default, e.g. `pnpm dlx shadcn@latest add @basecn/button`

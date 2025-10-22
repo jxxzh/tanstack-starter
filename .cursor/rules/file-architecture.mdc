@@ -1,0 +1,44 @@
+---
+globs: src/**/*
+alwaysApply: false
+---
+# File Architecture
+
+This project follows the Feature-Sliced Design (FSD) architecture principles, but does not strictly follow them.
+
+## Project File Structure
+
+### First Level: Layer
+
+The layers are ordered from lowest to highest:
+
+1. `shared`(Only contains segments): Reusable functionality, especially when it's detached from the specifics of the project/business, though not necessarily.
+2. `entities`: Business entities that the project works with.
+3. `features`: Reused implementations of entire product features, i.e. actions that bring business value to the user.
+4. `widgets`: Large self-contained chunks of functionality or UI, usually delivering an entire use case.
+5. `routes`: Tanstack Router file routes. Routes(pages) are what makes up websites and applications.
+6. `app`(Only contains segments): All kinds of app-wide matters, both in the technical sense (e.g., context providers) and in the business sense (e.g., analytics).
+
+### Second Level: Slice
+
+Slices are meant to be independent and highly cohesive groups of code files, which partition the code by business domain and keep logically related modules close together.
+
+### Third Level: Segment
+
+Segments group code by its technical nature. Segment names are not constrained, but there are several conventional names for the most common purposes:
+
+- ui — everything related to UI display: UI components, date formatters, styles, etc.
+- api — backend interactions: request functions, data types, mappers, etc.
+- model — the data model: schemas, interfaces, stores, and business logic.
+- lib — library code that other modules on this slice need.
+- config — configuration files and feature flags.
+
+## Architecture Rules
+
+1. **When adding a new feature, first determine which layer it belongs to.**
+2. **Keep the responsibility of each slice single, and slices cannot use other slices on the same layer**
+3. **One layer can only know about and import modules from the layers strictly below**
+
+## Differences from FSD
+1. Replace the `pages` layer with the `routes` layer, and use the best practices of `Tanstack Router` file routes for the `routes` layer.
+2. Do not use the `Public API` principle for avoiding using barrel files.

@@ -1,0 +1,39 @@
+---
+globs: **/*.ts,**/*.tsx,**/*.d.ts
+alwaysApply: false
+---
+---
+description: TypeScript coding standards and best practices for modern web development
+globs: **/*.ts, **/*.tsx, **/*.d.ts
+---
+
+# TypeScript Best Practices
+
+## Type System
+- Prefer interfaces over types for object definitions
+- Use type for unions, intersections, and mapped types
+- Avoid using `any`, prefer `unknown` for unknown types
+- Use strict TypeScript configuration
+- Leverage TypeScript's built-in utility types
+- Use generics for reusable type patterns
+- Prefer `as const` or zod schema over `enum` for enum types
+
+## Functions
+- Use explicit return types for public functions
+- Use arrow functions for callbacks and methods
+- Implement proper error handling with custom error types
+- Prefer async/await over Promises
+- Prefer object parameters over multiple parameters
+
+## Error Handling
+- Create custom error types for domain-specific errors
+- Use Result types for operations that can fail
+- Implement proper error boundaries
+- Use try-catch blocks with typed catch clauses
+- Handle Promise rejections properly
+
+## Patterns
+- Use the Builder pattern for complex object creation
+- Implement the Repository pattern for data access, e.g. Collection of Tanstack DB
+- Use the Factory pattern for object creation
+- Use the Module pattern for encapsulation 
