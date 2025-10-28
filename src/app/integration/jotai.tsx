@@ -16,7 +16,7 @@ export function JotaiProvider({ children }: { children: React.ReactNode }) {
   return (
     <Provider>
       <Suspense fallback={null}>
-        <Devtools position='bottom-right'/>
+        <Devtools position="bottom-right" />
       </Suspense>
       {children}
     </Provider>

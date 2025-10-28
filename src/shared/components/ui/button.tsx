@@ -96,7 +96,6 @@ const buttonVariants = cva(
         mode: 'icon',
         className: 'w-10 h-10 p-0 [&_svg:not([class*=size-])]:size-4',
       },
-
     ],
     defaultVariants: {
       variant: 'primary',
@@ -148,8 +147,8 @@ function Button({
           Record<string, unknown>,
           string | React.JSXElementConstructor<unknown>
         >)
-      // biome-ignore lint/a11y/useButtonType: <explanation>
-      : render || <button />
+      : // biome-ignore lint/a11y/useButtonType: <explanation>
+        render || <button />
 
   // When using asChild, children becomes the element props, otherwise use children normally
   const finalProps =

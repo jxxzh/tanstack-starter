@@ -73,6 +73,4 @@ function AppleHelloEnglishEffect({
   )
 }
 
-export {
-  AppleHelloEnglishEffect
-}
+export { AppleHelloEnglishEffect }

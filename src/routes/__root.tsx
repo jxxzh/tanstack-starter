@@ -56,7 +56,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       {
         rel: 'manifest',
         href: '/site.webmanifest',
-      }
+      },
     ],
   }),
 
@@ -72,9 +72,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body>
         {/* Base UI */}
         <div className="isolate">
-          <JotaiProvider>
-            {children}
-          </JotaiProvider>
+          <JotaiProvider>{children}</JotaiProvider>
           <TanstackDevtools
             plugins={[
               {
