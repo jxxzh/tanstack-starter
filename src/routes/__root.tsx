@@ -74,6 +74,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <div className="isolate">
           <JotaiProvider>{children}</JotaiProvider>
           <TanstackDevtools
+            config={{
+              position: 'bottom-left',
+            }}
             plugins={[
               {
                 name: 'Tanstack Router',
