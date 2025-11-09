@@ -72,7 +72,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body>
         {/* Base UI */}
         <div className="isolate">
-          <JotaiProvider>{children}</JotaiProvider>
           <TanstackDevtools
             config={{
               position: 'bottom-left',
@@ -87,7 +86,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                 render: <ReactQueryDevtoolsPanel />,
               },
             ]}
-          />
+            />
+            <JotaiProvider>{children}</JotaiProvider>
         </div>
         <Scripts />
       </body>

@@ -32,7 +32,6 @@
     "clsx": "^2.1.1",
     "consola": "^3.4.2",
     "jotai": "^2.15.0",
-    "jotai-devtools": "^0.13.0",
     "lucide-react": "^0.476.0",
     "motion": "^12.23.24",
     "ofetch": "^1.4.1",
