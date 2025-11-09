@@ -1,3 +1,7 @@
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
 :root {
   --background: oklch(0.98 0.01 244.22);
   --foreground: oklch(0.37 0.03 259.73);
@@ -13,7 +17,7 @@
   --muted-foreground: oklch(0.55 0.02 264.37);
   --accent: oklch(0.95 0.05 163.01);
   --accent-foreground: oklch(0.37 0.03 259.73);
-  --destructive: oklch(0.64 0.21 25.33);
+  --destructive: oklch(0.637 0.237 25.331);
   --border: oklch(0.93 0.01 264.6);
   --input: oklch(0.93 0.01 264.6);
   --ring: oklch(0.72 0.19 149.58);
@@ -30,6 +34,15 @@
   --sidebar-accent-foreground: oklch(0.37 0.03 259.73);
   --sidebar-border: oklch(0.93 0.01 264.6);
   --sidebar-ring: oklch(0.72 0.19 149.58);
+
+  /* Coss UI Colors */
+  --destructive-foreground: oklch(0.505 0.213 27.518);
+  --info: oklch(0.623 0.214 259.815);
+  --info-foreground: oklch(0.488 0.243 264.376);
+  --success: oklch(0.696 0.17 162.48);
+  --success-foreground: oklch(0.508 0.118 165.612);
+  --warning: oklch(0.769 0.188 70.08);
+  --warning-foreground: oklch(0.555 0.163 48.998);
 
   --font-sans: DM Sans, sans-serif;
   --font-serif: Lora, serif;
@@ -69,7 +82,8 @@
   --muted-foreground: oklch(0.55 0.02 264.37);
   --accent: oklch(0.37 0.03 259.73);
   --accent-foreground: oklch(0.71 0.01 286.14);
-  --destructive: oklch(0.64 0.21 25.33);
+  --destructive: oklch(0.637 0.237 25.331);
+
   --border: oklch(0.45 0.03 256.8);
   --input: oklch(0.45 0.03 256.8);
   --ring: oklch(0.77 0.15 163.22);
@@ -86,6 +100,15 @@
   --sidebar-accent-foreground: oklch(0.71 0.01 286.14);
   --sidebar-border: oklch(0.45 0.03 256.8);
   --sidebar-ring: oklch(0.77 0.15 163.22);
+
+  /* Coss UI Colors */
+  --destructive-foreground: oklch(0.704 0.191 22.216);
+  --info: oklch(0.623 0.214 259.815);
+  --info-foreground: oklch(0.707 0.165 254.624);
+  --success: oklch(0.696 0.17 162.48);
+  --success-foreground: oklch(0.765 0.177 163.223);
+  --warning: oklch(0.769 0.188 70.08);
+  --warning-foreground: oklch(0.828 0.189 84.429);
 
   --shadow-2xs: 0 1px 3px 0px oklch(0.0 0 0 / 0.05);
   --shadow-xs: 0 1px 3px 0px oklch(0.0 0 0 / 0.05);
@@ -135,6 +158,15 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
+  /* Coss UI Colors */
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
@@ -172,5 +204,17 @@
     to {
       transform: translateY(calc(-100% - var(--gap)));
     }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  *:focus-visible {
+    @apply outline-ring rounded-xs shadow-none outline-2 outline-offset-3 transition-none!;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }

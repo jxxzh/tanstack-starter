@@ -5,11 +5,12 @@
   "tsx": true,
   "tailwind": {
     "config": "",
-    "css": "src/app/styles/base.css",
+    "css": "src/app/styles/theme.css",
     "baseColor": "zinc",
     "cssVariables": true,
     "prefix": ""
   },
+  "iconLibrary": "lucide",
   "aliases": {
     "components": "@/shared/components",
     "utils": "@/shared/lib/utils",
@@ -17,9 +18,8 @@
     "lib": "@/shared/lib",
     "hooks": "@/shared/hooks"
   },
-  "iconLibrary": "lucide",
   "registries": {
-    "@basecn": "https://basecn.dev/r/{name}.json",
-    "@reui": "https://reui.io/r/{name}.json"
-	}
+    "@coss": "https://coss.com/ui/r/{name}.json",
+    "@basecn": "https://basecn.dev/r/{name}.json"
+  }
 }
