@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
 @import "./theme.css";
 
 /** Global Styles **/
@@ -9,6 +11,11 @@
       "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  /** Smooth scroll **/
+  html {
+    scroll-behavior: smooth;
   }
 
   code {
@@ -42,13 +49,8 @@
   @media (width >= --theme(--breakpoint-sm)) {
     max-width: none;
   }
-  @media (width >= 1440px) {
+  @media (width >= --theme(--breakpoint-xl)) {
     padding-inline: 2rem;
-    max-width: 1440px;
+    max-width: --theme(--breakpoint-xl);
   }
-}
-
-/** Smooth scroll **/
-html {
-  scroll-behavior: smooth;
 }
