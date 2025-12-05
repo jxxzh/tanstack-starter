@@ -17,6 +17,7 @@
     "@t3-oss/env-core": "^0.12.0",
     "@tailwindcss/vite": "^4.1.17",
     "@tanstack/db": "^0.1.12",
+    "@tanstack/devtools-vite": "^0.3.11",
     "@tanstack/query-db-collection": "^0.2.42",
     "@tanstack/react-db": "^0.1.43",
     "@tanstack/react-devtools": "^0.2.2",
