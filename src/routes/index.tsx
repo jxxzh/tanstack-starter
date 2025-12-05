@@ -1,6 +1,7 @@
 import { Button } from '@/shared/components/ui/button'
 import { toastManager } from '@/shared/components/ui/toast'
 import { createFileRoute } from '@tanstack/react-router'
+import { AlertDialogQuickOpen } from './-ui/alert-dialog-quick-open'
 import { Counter } from './-ui/counter'
 import { AppleHelloEnglishEffect } from './-ui/hello'
 
@@ -27,6 +28,7 @@ function HomePage() {
         >
           show toast
         </Button>
+        <AlertDialogQuickOpen />
       </main>
     </div>
   )
