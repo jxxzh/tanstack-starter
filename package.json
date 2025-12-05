@@ -10,8 +10,7 @@
     "test": "vitest run",
     "format": "biome format",
     "lint": "biome lint",
-    "check": "biome check",
-    "gen:type": "sh supabase-gen-type.sh"
+    "check": "biome check --write"
   },
   "dependencies": {
     "@base-ui-components/react": "1.0.0-beta.4",
@@ -52,7 +51,7 @@
     "@types/react-dom": "^19.2.2",
     "@vitejs/plugin-react": "^4.7.0",
     "jsdom": "^26.1.0",
-    "shadcn": "^3.5.0",
+    "shadcn": "^3.5.1",
     "typescript": "^5.9.3",
     "vite": "^7.2.2",
     "vitest": "^3.2.4",

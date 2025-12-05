@@ -19,7 +19,6 @@
     "hooks": "@/shared/hooks"
   },
   "registries": {
-    "@coss": "https://coss.com/ui/r/{name}.json",
-    "@basecn": "https://basecn.dev/r/{name}.json"
+    "@coss": "https://coss.com/ui/r/{name}.json"
   }
 }
