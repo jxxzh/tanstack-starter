@@ -4,6 +4,7 @@ import { setupRouterSsrQueryIntegration } from '@tanstack/react-router-ssr-query
 
 // Import the generated route tree
 import { routeTree } from '@/routeTree.gen'
+import { Spinner } from '@/shared/components/ui/spinner'
 import { QueryClientProvider } from '@tanstack/react-query'
 
 // Create a new router instance
@@ -19,6 +20,12 @@ export const getRouter = () => {
         </QueryClientProvider>
       )
     },
+    defaultNotFoundComponent: () => <p>Not Found</p>,
+    defaultPendingComponent: () => (
+      <div className="w-dvw h-dvh">
+        <Spinner />
+      </div>
+    ),
   })
 
   setupRouterSsrQueryIntegration({ router, queryClient })
