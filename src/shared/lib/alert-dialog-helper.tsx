@@ -3,7 +3,7 @@
 import { atom, useAtom } from 'jotai'
 import { createStore } from 'jotai/vanilla'
 import type React from 'react'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import {
   AlertDialog,
@@ -15,7 +15,6 @@ import {
 } from '@/shared/components/ui/alert-dialog'
 import { Button } from '@/shared/components/ui/button'
 import { Spinner } from '@/shared/components/ui/spinner'
-import { logger } from './logger'
 
 type ButtonVariant = React.ComponentProps<typeof Button>['variant']
 
@@ -37,12 +36,18 @@ interface AlertDialogQuickOpenState {
   options: AlertDialogQuickOpenOptions
 }
 
-const staticAlertDialogAtom = atom<AlertDialogQuickOpenState | null>(null)
+const staticAlertDialogUIAtom = atom<{
+  open: boolean
+  state: AlertDialogQuickOpenState | null
+}>({
+  open: false,
+  state: null,
+})
 let dialogId = 0
 
 function StaticAlertDialog() {
-  const [state, setState] = useAtom(staticAlertDialogAtom, { store })
-  const current = state
+  const [uiState, setUiState] = useAtom(staticAlertDialogUIAtom, { store })
+  const current = uiState.state
   const options = current?.options
 
   const {
@@ -60,8 +65,8 @@ function StaticAlertDialog() {
   const [isCancelLoading, setIsCancelLoading] = useState(false)
 
   const close = useCallback(() => {
-    setState(null)
-  }, [setState])
+    setUiState(prev => ({ ...prev, open: false }))
+  }, [setUiState])
 
   const handleConfirm = useCallback(async () => {
     if (!onConfirm) {
@@ -89,23 +94,10 @@ function StaticAlertDialog() {
     }
   }, [close, onCancel])
 
-  const handleOpenChange = useCallback(
-    (val: boolean) => {
-      if (!val) {
-        close()
-      }
-    },
-    [close],
-  )
-
-  useEffect(() => {
-    logger.info('StaticAlertDialog', { current })
-  }, [current])
-
   const isLoading = isConfirmLoading || isCancelLoading
 
   return (
-    <AlertDialog open={!!current} onOpenChange={handleOpenChange}>
+    <AlertDialog open={uiState.open} onOpenChange={(open) => setUiState(prev => ({ ...prev, open }))}>
       <AlertDialogPopup>
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
@@ -140,11 +132,11 @@ function StaticAlertDialog() {
 
 function openAlertDialog(options: AlertDialogQuickOpenOptions) {
   const id = ++dialogId
-  store.set(staticAlertDialogAtom, { id, options })
+  store.set(staticAlertDialogUIAtom, ({state: { id, options }, open: true }))
 }
 
 function closeAlertDialog() {
-  store.set(staticAlertDialogAtom, null)
+  store.set(staticAlertDialogUIAtom, (prev) => ({ ...prev, open: false }))
 }
 
 export type { AlertDialogQuickOpenOptions }
