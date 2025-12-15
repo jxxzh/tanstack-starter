@@ -1,6 +1,6 @@
 import { Button } from '@/shared/components/ui/button'
-import { toastManager } from '@/shared/components/ui/toast'
 import { createFileRoute } from '@tanstack/react-router'
+import { toast } from 'sonner'
 import { AlertDialogQuickOpen } from './-ui/alert-dialog-quick-open'
 import { Counter } from './-ui/counter'
 import { AppleHelloEnglishEffect } from './-ui/hello'
@@ -20,8 +20,7 @@ function HomePage() {
         </div>
         <Button
           onClick={() =>
-            toastManager.add({
-              title: 'Hello',
+            toast('Hello', {
               description: 'This is a toast',
             })
           }

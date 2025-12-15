@@ -7,10 +7,10 @@ import { useCallback, useState } from 'react'
 
 import {
   AlertDialog,
+  AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogPopup,
   AlertDialogTitle,
 } from '@/shared/components/ui/alert-dialog'
 import { Button } from '@/shared/components/ui/button'
@@ -65,7 +65,7 @@ function StaticAlertDialog() {
   const [isCancelLoading, setIsCancelLoading] = useState(false)
 
   const close = useCallback(() => {
-    setUiState(prev => ({ ...prev, open: false }))
+    setUiState((prev) => ({ ...prev, open: false }))
   }, [setUiState])
 
   const handleConfirm = useCallback(async () => {
@@ -97,8 +97,11 @@ function StaticAlertDialog() {
   const isLoading = isConfirmLoading || isCancelLoading
 
   return (
-    <AlertDialog open={uiState.open} onOpenChange={(open) => setUiState(prev => ({ ...prev, open }))}>
-      <AlertDialogPopup>
+    <AlertDialog
+      open={uiState.open}
+      onOpenChange={(open) => setUiState((prev) => ({ ...prev, open }))}
+    >
+      <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
           {description && (
@@ -125,14 +128,14 @@ function StaticAlertDialog() {
             {confirmText}
           </Button>
         </AlertDialogFooter>
-      </AlertDialogPopup>
+      </AlertDialogContent>
     </AlertDialog>
   )
 }
 
 function openAlertDialog(options: AlertDialogQuickOpenOptions) {
   const id = ++dialogId
-  store.set(staticAlertDialogUIAtom, ({state: { id, options }, open: true }))
+  store.set(staticAlertDialogUIAtom, { state: { id, options }, open: true })
 }
 
 function closeAlertDialog() {

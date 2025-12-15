@@ -7,7 +7,7 @@
 - 基础：TypeScript（strict）+ React 19 + Vite 7
 - 全栈框架：Tanstack Start
 - 数据与网络：TanStack Query/TanStack DB、ofetch
-- UI：Tailwind CSS v4，CossUI（基于 Base UI）、lucide-react、class-variance-authority、motion
+- UI：Tailwind CSS v4，Shadcn UI（基于 Base UI）、lucide-react、class-variance-authority、motion
 - 状态与数据：Jotai、Zod、ofetch
 - 工具链：pnpm、Biome（format/lint）
 
@@ -17,7 +17,7 @@
 - 统一使用 Biome（`pnpm check` / `biome check --write`）格式化与 lint
 - 函数式优先，组合优先，避免 prop drilling；组件/函数保持小而功能单一
 - TypeScript strict 开启，禁止未使用变量/参数；路径统一使用别名 `@/*`
-- UI 组件优先选择 CossUI 组件，class-variance-authority 定义变体
+- UI 组件优先选择 Shadcn UI 组件，class-variance-authority 定义变体  
 - 自定义UI组件时注意业务逻辑与样式分离，遵循 shadcn 组件开发最佳实践
 - 优先局部状态（hooks/Jotai）与无副作用的纯函数
 
@@ -36,13 +36,13 @@
 - 手动合并 PR，避免自动合并
 
 ## Domain Context
-当前为通用 TanStack Start + CossUI 的前端/同构模板项目，尚无特定业务域；新增业务请按 FSD 切片落位并补充对应 specs。
+当前为通用 TanStack Start + Shadcn UI 的前端/同构模板项目，尚无特定业务域；新增业务请按 FSD 切片落位并补充对应 specs。
 
 ## Important Constraints
 - 包管理器固定使用 pnpm；新依赖需审慎评估（体积/维护度/兼容性）
 - 遵守 FSD 单向依赖；禁止上行引用或跨切片耦合
 - 代码需通过 Biome 校验；保留 TypeScript strict 设置
-- 优先使用现有 CossUI/Base UI 组件与 Tailwind v4；避免引入与之冲突的样式方案
+- 优先使用现有 Shadcn UI 组件与 Tailwind v4；避免引入与之冲突的样式方案
 - SSR/同构场景下注意仅在客户端使用的 API（如 window）需保护或封装
 
 ## External Dependencies

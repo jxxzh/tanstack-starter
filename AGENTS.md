@@ -29,8 +29,8 @@ Keep this managed block so 'openspec update' can refresh the instructions.
 
 ### Core Stack
 - Tanstack Start: Full-stack framework for React
-- CossUI: A alternative to shadcn/ui with building on top of Base UI
-  - Use shadcn mcp to find and integrate useful components of `@coss` into the project.
+- Shadcn UI: A set of beautifully designed components. In this project, it is built on top of **Base UI**.
+  - Use shadcn mcp to find and integrate useful components into the project.
 
 ### Project Architecture
 Refer to the FSD(Feature-Sliced Design) architecture, organize code around features, domains, and layered boundaries, rather than file type.
