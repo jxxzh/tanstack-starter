@@ -44,7 +44,4 @@ Refer to the FSD(Feature-Sliced Design) architecture, organize code around featu
 - Functional Programming First
 - Focus on cohesion, prioritize composition, avoid prop drilling
 - Split large component, function, and file into smaller, focused ones
-
-## Tips
-
-- Always use context7 when I need code generation, setup or configuration steps, or library/API documentation. This means you should automatically use the Context7 MCP tools to resolve library id and get library docs without me having to explicitly ask.
+- 
