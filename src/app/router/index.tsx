@@ -22,8 +22,8 @@ export const getRouter = () => {
     },
     defaultNotFoundComponent: () => <p>Not Found</p>,
     defaultPendingComponent: () => (
-      <div className="w-dvw h-dvh">
-        <Spinner />
+      <div className="w-dvw h-dvh flex items-center justify-center">
+        <Spinner className="size-12" />
       </div>
     ),
   })
