@@ -35,3 +35,5 @@ export const env = createEnv({
    */
   emptyStringAsUndefined: true,
 })
+
+export const isServer = typeof window === 'undefined'

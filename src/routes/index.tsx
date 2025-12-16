@@ -1,4 +1,5 @@
 import { Button } from '@/shared/components/ui/button'
+import { ThemeToggle } from '@/shared/lib/theme/theme-toggle'
 import { createFileRoute } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { AlertDialogQuickOpen } from './-ui/alert-dialog-quick-open'
@@ -13,6 +14,7 @@ function HomePage() {
   return (
     <div className="text-center">
       <main className="min-h-screen flex flex-col items-center justify-center gap-5">
+        <ThemeToggle />
         Hello World
         <Counter />
         <div className="flex flex-col gap-4">

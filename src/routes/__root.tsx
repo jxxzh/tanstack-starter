@@ -5,6 +5,7 @@ import { JotaiProvider } from '@/app/integration/jotai'
 import appCss from '@/app/styles/base.css?url'
 import { Toaster } from '@/shared/components/ui/sonner'
 import { StaticAlertDialog } from '@/shared/lib/alert-dialog-helper'
+import { ThemeProvider } from '@/shared/lib/theme/provider'
 import { TanstackDevtools } from '@tanstack/react-devtools'
 import type { QueryClient } from '@tanstack/react-query'
 import { ReactQueryDevtoolsPanel } from '@tanstack/react-query-devtools'
@@ -89,11 +90,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               },
             ]}
           />
-          <JotaiProvider>
-            {children}
-            <Toaster />
-            <StaticAlertDialog />
-          </JotaiProvider>
+          <ThemeProvider>
+            <JotaiProvider>
+              {children}
+              <Toaster />
+              <StaticAlertDialog />
+            </JotaiProvider>
+          </ThemeProvider>
         </div>
         <Scripts />
       </body>
