@@ -7,7 +7,7 @@
 - 基础：TypeScript（strict）+ React 19 + Vite 7
 - 全栈框架：Tanstack Start
 - 数据与网络：TanStack Query/TanStack DB、ofetch
-- UI：Tailwind CSS v4，Shadcn UI（基于 Base UI）、lucide-react、class-variance-authority、motion
+- UI：Tailwind CSS v4，Shadcn UI（基于 Base UI）、tabler-icons、class-variance-authority、motion
 - 状态与数据：Jotai、Zod、ofetch
 - 工具链：pnpm、Biome（format/lint）
 
