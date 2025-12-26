@@ -1,20 +1,21 @@
 /**
  * Tanstack Router 根路由文件，可以导入 app 层的代码
  */
+
+import { TanstackDevtools } from '@tanstack/react-devtools'
+import type { QueryClient } from '@tanstack/react-query'
+import { ReactQueryDevtoolsPanel } from '@tanstack/react-query-devtools'
+import {
+  createRootRouteWithContext,
+  HeadContent,
+  Scripts,
+} from '@tanstack/react-router'
+import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { JotaiProvider } from '@/app/integration/jotai'
 import appCss from '@/app/styles/base.css?url'
 import { Toaster } from '@/shared/components/ui/sonner'
 import { StaticAlertDialog } from '@/shared/lib/alert-dialog-helper'
 import { ThemeProvider } from '@/shared/lib/theme/provider'
-import { TanstackDevtools } from '@tanstack/react-devtools'
-import type { QueryClient } from '@tanstack/react-query'
-import { ReactQueryDevtoolsPanel } from '@tanstack/react-query-devtools'
-import {
-  HeadContent,
-  Scripts,
-  createRootRouteWithContext,
-} from '@tanstack/react-router'
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 
 interface MyRouterContext {
   queryClient: QueryClient

@@ -23,9 +23,9 @@ export function AlertDialogQuickOpen() {
   }
 
   return (
-    <div className="p-6 space-y-4">
-      <h1 className="text-xl font-semibold">AlertDialog quickOpen 示例</h1>
-      <p className="text-sm text-muted-foreground">
+    <div className="space-y-4 p-6">
+      <h1 className="font-semibold text-xl">AlertDialog quickOpen 示例</h1>
+      <p className="text-muted-foreground text-sm">
         通过静态 helper 快速打开一次性 AlertDialog，包含 async 确认与 loading。
       </p>
       <Button variant="outline" onClick={handleOpen}>
