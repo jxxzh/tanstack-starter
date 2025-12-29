@@ -22,7 +22,19 @@
 - 优先局部状态（hooks/Jotai）与无副作用的纯函数
 
 ### Architecture Patterns
-- 采用 FSD 分层：shared → entities → features → widgets → routes → app，单向依赖仅指向更底层
+
+```
+├── src/
+│   ├── app/              # app entrypoint & config
+│   ├── routes/           # tanstack start router + server routes
+│   ├── widgets/          # large self-sufficient blocks of UI
+│   ├── features/         # interacting that users care to do
+│   ├── entities/         # concepts from the real world
+│   └── shared/           # foundation code for the project
+```
+
+
+- 参考 FSD 分层：shared → entities → features → widgets → routes → app，单向依赖仅指向更底层
 - 按Slice（业务域）+ Segment（ui/api/model/lib/config）组织代码，避免跨层耦合；底层共享逻辑放在 `src/shared/`
 - 路由与页面使用 TanStack Router/Start，根据需要选择SSR、CSR、SSG等模式
 - 样式以 Tailwind v4 为主，基础样式位于 `src/app/styles/`
@@ -40,10 +52,8 @@
 
 ## Important Constraints
 - 包管理器固定使用 pnpm；新依赖需审慎评估（体积/维护度/兼容性）
-- 遵守 FSD 单向依赖；禁止上行引用或跨切片耦合
 - 代码需通过 Biome 校验；保留 TypeScript strict 设置
 - 优先使用现有 Shadcn UI 组件与 Tailwind v4；避免引入与之冲突的样式方案
-- SSR/同构场景下注意仅在客户端使用的 API（如 window）需保护或封装
 
 ## External Dependencies
 

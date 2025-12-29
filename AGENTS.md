@@ -35,10 +35,16 @@ Keep this managed block so 'openspec update' can refresh the instructions.
 ### Project Architecture
 Refer to the FSD(Feature-Sliced Design) architecture, organize code around features, domains, and layered boundaries, rather than file type.
 
-**Core Concepts**
-- Layers: The Backbone of Dependency Direction, from lowest to highest: shared, entities, features, widgets, routes, app.
-- Slices: Grouping by Business Meaning, e.g. user, product, order, etc.
-- Segments: Grouping by Technical Purpose, e.g. ui, api, model, lib, config, etc.
+```
+├── src/
+│   ├── app/              # app entrypoint & config
+│   ├── routes/           # tanstack start router + server routes
+│   ├── widgets/          # large self-sufficient blocks of UI
+│   ├── features/         # interacting that users care to do
+│   ├── entities/         # concepts from the real world
+│   └── shared/           # foundation code for the project
+```
+
 
 ### Code Style
 - Functional Programming First
