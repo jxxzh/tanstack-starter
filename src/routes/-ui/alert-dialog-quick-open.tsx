@@ -1,5 +1,5 @@
+import { openAlertDialog } from '@/features/alert/alert-dialog-helper'
 import { Button } from '@/shared/components/ui/button'
-import { openAlertDialog } from '@/shared/lib/alert-dialog-helper'
 
 export function AlertDialogQuickOpen() {
   const handleOpen = () => {

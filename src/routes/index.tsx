@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { toast } from 'sonner'
+import { ThemeToggle } from '@/features/theme/theme-toggle'
 import { Button } from '@/shared/components/ui/button'
-import { ThemeToggle } from '@/shared/lib/theme/theme-toggle'
 import { AlertDialogQuickOpen } from './-ui/alert-dialog-quick-open'
 import { Counter } from './-ui/counter'
 import { AppleHelloEnglishEffect } from './-ui/hello'
