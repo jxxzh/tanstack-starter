@@ -13,9 +13,9 @@ import {
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { JotaiProvider } from '@/app/integration/jotai'
 import appCss from '@/app/styles/base.css?url'
+import { StaticAlertDialog } from '@/features/alert/alert-dialog-helper'
+import { ThemeProvider } from '@/features/theme/provider'
 import { Toaster } from '@/shared/components/ui/sonner'
-import { StaticAlertDialog } from '@/shared/lib/alert-dialog-helper'
-import { ThemeProvider } from '@/shared/lib/theme/provider'
 
 interface MyRouterContext {
   queryClient: QueryClient
