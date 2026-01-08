@@ -2,7 +2,7 @@
  * Tanstack Router 根路由文件，可以导入 app 层的代码
  */
 
-import { TanstackDevtools } from '@tanstack/react-devtools'
+import { TanStackDevtools } from '@tanstack/react-devtools'
 import type { QueryClient } from '@tanstack/react-query'
 import { ReactQueryDevtoolsPanel } from '@tanstack/react-query-devtools'
 import {
@@ -59,7 +59,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body>
         {/* Base UI */}
         <div className="isolate">
-          <TanstackDevtools
+          <TanStackDevtools
             config={{
               position: 'bottom-left',
             }}
