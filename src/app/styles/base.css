@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/complexity/noImportantStyles: global setting */
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -6,14 +7,27 @@
 @import "./theme.css";
 
 @layer base {
+  html {
+    scrollbar-gutter: stable;
+  }
   * {
     @apply border-border outline-ring/50;
   }
   body {
     @apply font-sans bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
+
+    /* 移动端 - 基准为 375px */
+    font-size: calc(100vw / 375 * 16);
+
+    @media screen and (min-width: 768px) {
+      /* 平板及以上 - 固定 16px */
+      font-size: 16px;
+    }
+
+    @media screen and (max-width: 320px) {
+      /* 小屏幕兜底 - 最小 320px */
+      font-size: calc(320px / 375 * 16);
+    }
   }
 }
 
@@ -27,5 +41,11 @@
   @media (width >= --theme(--breakpoint-xl)) {
     padding-inline: 2rem;
     max-width: --theme(--breakpoint-xl);
+  }
+}
+
+@layer utilities {
+  .flex-center {
+    @apply flex items-center justify-center;
   }
 }

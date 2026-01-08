@@ -1,4 +1,4 @@
-/** biome-ignore-all lint/a11y/useSemanticElements: biome is dumb */
+/** biome-ignore-all lint/a11y/useSemanticElements: shadcn original code */
 import { cva, type VariantProps } from 'class-variance-authority'
 import type * as React from 'react'
 

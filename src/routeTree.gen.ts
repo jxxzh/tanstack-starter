@@ -9,50 +9,75 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as BaseRouteRouteImport } from './routes/_base/route'
+import { Route as BaseIndexRouteImport } from './routes/_base/index'
 
-const IndexRoute = IndexRouteImport.update({
+const BaseRouteRoute = BaseRouteRouteImport.update({
+  id: '/_base',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BaseIndexRoute = BaseIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => BaseRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof BaseIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/': typeof BaseIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_base': typeof BaseRouteRouteWithChildren
+  '/_base/': typeof BaseIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths: '/'
   fileRoutesByTo: FileRoutesByTo
   to: '/'
-  id: '__root__' | '/'
+  id: '__root__' | '/_base' | '/_base/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  BaseRouteRoute: typeof BaseRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_base': {
+      id: '/_base'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof BaseRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_base/': {
+      id: '/_base/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof BaseIndexRouteImport
+      parentRoute: typeof BaseRouteRoute
     }
   }
 }
 
+interface BaseRouteRouteChildren {
+  BaseIndexRoute: typeof BaseIndexRoute
+}
+
+const BaseRouteRouteChildren: BaseRouteRouteChildren = {
+  BaseIndexRoute: BaseIndexRoute,
+}
+
+const BaseRouteRouteWithChildren = BaseRouteRoute._addFileChildren(
+  BaseRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  BaseRouteRoute: BaseRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

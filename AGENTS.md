@@ -1,39 +1,38 @@
-<!-- OPENSPEC:START -->
-# OpenSpec Instructions
+# Project Context
 
-These instructions are for AI assistants working in this project.
+## 目标
+基于 TanStack Start 的全栈 React 模板工程，提供开箱可用的路由、数据获取、UI 组件与 FSD 分层约定，帮助快速搭建可维护、可扩展的前后端同构应用。
 
-Always open `@/openspec/AGENTS.md` when the request:
-- Mentions planning or proposals (words like proposal, spec, change, plan)
-- Introduces new capabilities, breaking changes, architecture shifts, or big performance/security work
-- Sounds ambiguous and you need the authoritative spec before coding
+## Tech Stack
+- 语言：TypeScript（strict）
+- 包管理器：pnpm
+- 代码格式：Biome
+- 打包工具：Vite 7
+- UI框架： React 19
+- 全栈框架：TanStack Start
+- UI
+  - CSS style: Tailwind CSS v4
+  - 基础组件：Shadcn UI（基于 Base UI）
+  - 图标：tabler-icons
+  - 样式组合：class-variance-authority, clsx
+  - 动画：motion
+- 格式验证：Zod
+- 数据同步：TanStack Query，TanStack DB
+- 数据请求：ofetch
+- 客户端状态管理：Jotai
+- 日志：consola
 
-Use `@/openspec/AGENTS.md` to learn:
-- How to create and apply change proposals
-- Spec format and conventions
-- Project structure and guidelines
+## Project Conventions
 
-Keep this managed block so 'openspec update' can refresh the instructions.
+### 代码风格
+- 统一使用 Biome（`pnpm check` / `biome check --write`）格式化与 lint
+- 函数式优先，组合优先，避免 prop drilling
+- 组件/函数保持小而功能单一
+- UI 组件开发
+  - 优先组合胜过继承：构建可组合和嵌套的组件来创建更复杂的 UI，而不是依赖深层的类层次结构。
+  - 优先使用 shadcn 的已有组件，非必需不重复构建基础组件
 
-<!-- OPENSPEC:END -->
-
-# AGENTS instructions
-
-## Project Knowledge
-
-### Development Environment
-- Use `pnpm` as the package manager.
-  - dev server: `pnpm dev`
-- Use `biome` as the linter and formatter.
-  - Use check command to lint and format code: `pnpm check` or `biome check --write`
-
-### Core Stack
-- Tanstack Start: Full-stack framework for React
-- Shadcn UI: A set of beautifully designed components. In this project, it is built on top of **Base UI**.
-  - Use shadcn mcp to find and integrate useful components into the project.
-
-### Project Architecture
-Refer to the FSD(Feature-Sliced Design) architecture, organize code around features, domains, and layered boundaries, rather than file type.
+### Architecture Patterns
 
 ```
 ├── src/
@@ -46,8 +45,5 @@ Refer to the FSD(Feature-Sliced Design) architecture, organize code around featu
 ```
 
 
-### Code Style
-- Functional Programming First
-- Focus on cohesion, prioritize composition, avoid prop drilling
-- Split large component, function, and file into smaller, focused ones
-- 
+- 借鉴 FSD 分层结构：shared → entities → features → widgets → routes → app
+- 按Slice（业务域）+ Segment（ui/api/model/lib/config）组织代码，避免跨层耦合；底层共享逻辑放在 `src/shared/`

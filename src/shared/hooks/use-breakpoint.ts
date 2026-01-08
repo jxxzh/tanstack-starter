@@ -24,10 +24,10 @@ const BREAKPOINTS: BreakpointConfig = {
   '2xl': 1536, // => @media (min-width: 1536px)
 } as const
 
-// 缓存服务端默认值
+// 缓存服务端默认值（默认全为 true，即服务端渲染时默认采用桌面端布局，避免侧边栏闪烁）
 const defaultBreakpointInfo: BreakpointInfo = BREAKPOINT_KEYS.reduce(
   (acc, key) => {
-    acc[key as BreakpointKey] = false
+    acc[key as BreakpointKey] = true
     return acc
   },
   {} as BreakpointInfo,
@@ -140,13 +140,4 @@ function useBreakpointInfo(): {
   }
 }
 
-/**
- * 移动端检测 Hook
- * @returns boolean - 是否为移动端设备
- */
-function useIsMobile(): boolean {
-  const { info } = useBreakpointInfo()
-  return !info.md
-}
-
-export { BREAKPOINTS, useBreakpointInfo, useIsMobile }
+export { BREAKPOINTS, useBreakpointInfo }

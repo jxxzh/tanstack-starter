@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.10/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.11/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -7,7 +7,12 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**", "!src/routeTree.gen.ts"]
+    "includes": [
+      "**/src/**/*",
+      "**/.vscode/**/*",
+      "**/vite.config.ts",
+      "!**/src/routeTree.gen.ts"
+    ]
   },
   "formatter": {
     "enabled": true,
