@@ -7,7 +7,7 @@ import { API_ERROR_TYPE, APIError } from './error'
  * 统一处理错误和响应
  */
 export const apiRequest = ofetch.create({
-  baseURL: env.VITE_BASE_URL,
+  baseURL: env.VITE_API_BASE_URL,
 
   onRequestError: ({ error }) => {
     throw new APIError({
