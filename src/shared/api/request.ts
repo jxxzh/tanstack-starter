@@ -1,5 +1,5 @@
 import { ofetch } from 'ofetch'
-import { env } from '@/shared/config/env'
+import { clientEnv } from '@/shared/config/client-env'
 import { API_ERROR_TYPE, APIError } from './error'
 
 /**
@@ -7,7 +7,7 @@ import { API_ERROR_TYPE, APIError } from './error'
  * 统一处理错误和响应
  */
 export const apiRequest = ofetch.create({
-  baseURL: env.VITE_API_BASE_URL,
+  baseURL: clientEnv.VITE_API_URL,
 
   onRequestError: ({ error }) => {
     throw new APIError({

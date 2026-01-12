@@ -5,7 +5,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/shared/components/ui/sidebar'
-import { env } from '@/shared/config/env'
+import { clientEnv } from '@/shared/config/client-env'
 
 export function AppTitle() {
   const { setOpenMobile } = useSidebar()
@@ -22,7 +22,9 @@ export function AppTitle() {
                 onClick={() => setOpenMobile(false)}
                 className="grid flex-1 text-start text-sm leading-tight"
               >
-                <span className="truncate font-bold">{env.VITE_APP_NAME}</span>
+                <span className="truncate font-bold">
+                  {clientEnv.VITE_APP_NAME}
+                </span>
               </Link>
             </div>
           )}

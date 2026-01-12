@@ -36,12 +36,12 @@
 
 ```
 ├── src/
-│   ├── app/              # app entrypoint & config
-│   ├── routes/           # tanstack start router + server routes
-│   ├── widgets/          # large self-sufficient blocks of UI
-│   ├── features/         # interacting that users care to do
-│   ├── entities/         # concepts from the real world
-│   └── shared/           # foundation code for the project
+│   ├── app/              # 应用层：应用入口和配置
+│   ├── routes/           # 路由层：tanstack start router + server routes
+│   ├── widgets/          # 挂件层：大型自包含的 UI 模块
+│   ├── features/         # 业务层：用户关心的交互
+│   ├── entities/         # 实体层：真实世界的概念
+│   └── shared/           # 共享层：基础可复用代码
 ```
 
 
