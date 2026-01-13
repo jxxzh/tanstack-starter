@@ -29,6 +29,7 @@
 - UI 组件开发
   - 优先组合胜过继承：构建可组合和嵌套的组件来创建更复杂的 UI，而不是依赖深层的类层次结构。
   - 优先使用 shadcn 的已有组件，非必需不重复构建基础组件
+  - 当前项目已集成 React Compiler， 非必要不做额外优化，如 "useCallback", "useMemo" 等
 
 ### Architecture Patterns
 
