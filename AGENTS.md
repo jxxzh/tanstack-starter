@@ -46,3 +46,8 @@
 
 - 前端端按影响范围分层：shared → entities → features → widgets → routes → app
 - 按Slice（业务域）+ Segment（ui/api/model/lib/config）组织代码，避免跨层耦合；底层共享逻辑放在 `src/shared/`
+
+
+## Important Constraints
+
+- '/src/shared/components/ui'文件夹存放的是Shadcn组件代码，如要调整样式，推荐通过"className"+"cn"的方式；如果确实要修改，请说明原因并获得允许
