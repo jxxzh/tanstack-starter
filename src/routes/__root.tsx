@@ -16,6 +16,7 @@ import appCss from '@/app/styles/base.css?url'
 import { StaticAlertDialog } from '@/features/alert/alert-dialog-helper'
 import { ThemeProvider } from '@/features/theme/provider'
 import { Toaster } from '@/shared/components/ui/sonner'
+import { clientEnv } from '@/shared/config/client-env'
 
 interface MyRouterContext {
   queryClient: QueryClient
@@ -32,7 +33,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        title: clientEnv.VITE_APP_NAME,
       },
     ],
     links: [
