@@ -6,14 +6,15 @@ import {
   IconLoader,
 } from '@tabler/icons-react'
 import { Toaster as Sonner, type ToasterProps } from 'sonner'
-import { useTheme } from '@/features/theme/provider'
 
-const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = 'system' } = useTheme()
+type AppToasterProps = ToasterProps & {
+  theme?: NonNullable<ToasterProps['theme']>
+}
 
+const Toaster = ({ theme = 'system', ...props }: AppToasterProps) => {
   return (
     <Sonner
-      theme={theme as ToasterProps['theme']}
+      theme={theme}
       className="toaster group"
       icons={{
         success: <IconCircleCheck className="size-4" />,

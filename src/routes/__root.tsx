@@ -14,7 +14,7 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { JotaiProvider } from '@/app/integration/jotai'
 import appCss from '@/app/styles/base.css?url'
 import { StaticAlertDialog } from '@/features/alert/alert-dialog-helper'
-import { ThemeProvider } from '@/features/theme/provider'
+import { ThemeProvider, useTheme } from '@/features/theme/provider'
 import { Toaster } from '@/shared/components/ui/sonner'
 import { clientEnv } from '@/shared/config/client-env'
 
@@ -78,7 +78,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           <ThemeProvider>
             <JotaiProvider>
               {children}
-              <Toaster />
+              <RootToaster />
               <StaticAlertDialog />
             </JotaiProvider>
           </ThemeProvider>
@@ -87,4 +87,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </body>
     </html>
   )
+}
+
+function RootToaster() {
+  const { theme } = useTheme()
+
+  return <Toaster theme={theme} />
 }

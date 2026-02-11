@@ -1,6 +1,6 @@
 import { atomWithStorage } from 'jotai/utils'
 import type { Sidebar } from '@/shared/components/ui/sidebar'
-import { cookieStorage } from '@/shared/lib/jotai-utils'
+import { createCookieStorage } from '@/shared/lib/jotai-utils'
 
 type SidebarProps = Parameters<typeof Sidebar>[0]
 
@@ -16,7 +16,7 @@ export const defaultLayoutAtomState: LayoutAtomState = {
 export const layoutAtom = atomWithStorage<LayoutAtomState>(
   'layout',
   defaultLayoutAtomState,
-  cookieStorage,
+  createCookieStorage<LayoutAtomState>(),
   {
     getOnInit: true,
   },
@@ -25,7 +25,7 @@ export const layoutAtom = atomWithStorage<LayoutAtomState>(
 export const sidebarOpenAtom = atomWithStorage<boolean>(
   'sidebar_open',
   true,
-  cookieStorage,
+  createCookieStorage<boolean>(),
   {
     getOnInit: true,
   },

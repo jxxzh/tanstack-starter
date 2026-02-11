@@ -4,11 +4,14 @@ import { getCookieFn, removeCookieFn, setCookieFn } from './cookie'
 
 export const jotaiStore = createStore()
 
-// biome-ignore lint/suspicious/noExplicitAny: any is used to avoid type errors
-export const cookieStorage = createJSONStorage<any>(() => {
+function createCookieStringStorage() {
   return {
-    getItem: (key) => getCookieFn(key),
-    setItem: (key, value) => setCookieFn(key, value),
-    removeItem: (key) => removeCookieFn(key),
+    getItem: (key: string) => getCookieFn(key),
+    setItem: (key: string, value: string) => setCookieFn(key, value),
+    removeItem: (key: string) => removeCookieFn(key),
   }
-})
+}
+
+export function createCookieStorage<Value>() {
+  return createJSONStorage<Value>(() => createCookieStringStorage())
+}
