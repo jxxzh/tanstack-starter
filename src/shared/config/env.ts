@@ -6,5 +6,4 @@ const clientEnvSchema = z.object({
   VITE_API_URL: z.url().optional(),
 })
 
-// Validate client environment
 export const clientEnv = clientEnvSchema.parse(import.meta.env)

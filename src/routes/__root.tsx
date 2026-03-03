@@ -16,7 +16,7 @@ import appCss from '@/app/styles/base.css?url'
 import { StaticAlertDialog } from '@/features/alert/alert-dialog-helper'
 import { ThemeProvider, useTheme } from '@/features/theme/provider'
 import { Toaster } from '@/shared/components/ui/sonner'
-import { clientEnv } from '@/shared/config/client-env'
+import { clientEnv } from '@/shared/config/env'
 
 interface MyRouterContext {
   queryClient: QueryClient

@@ -1,5 +1,5 @@
 import { ofetch } from 'ofetch'
-import { clientEnv } from '@/shared/config/client-env'
+import { clientEnv } from '@/shared/config/env'
 import { API_ERROR_TYPE, APIError } from './error'
 
 /**

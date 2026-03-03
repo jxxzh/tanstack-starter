@@ -5,7 +5,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/shared/components/ui/sidebar'
-import { clientEnv } from '@/shared/config/client-env'
+import { clientEnv } from '@/shared/config/env'
 
 export function AppTitle() {
   const { setOpenMobile } = useSidebar()
