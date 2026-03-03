@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { clientEnv } from '@/shared/config/client-env'
+import { clientEnv } from '@/shared/config/env'
 import { logger } from '@/shared/lib/logger'
 
 const FEISHU_SDK_SRC =

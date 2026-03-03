@@ -7,6 +7,7 @@ import {
   updateSession,
 } from '@tanstack/react-start/server'
 import { z } from 'zod'
+import { getServerEnv } from '@/shared/config/env.server'
 
 const DEV_SESSION_SECRET =
   'dev-only-feishu-session-secret-change-me-before-production'
@@ -55,12 +56,13 @@ type FeishuUserResponse = {
 let feishuClient: lark.Client | null = null
 
 function getSessionSecret() {
-  const configuredSecret = process.env.SESSION_SECRET?.trim()
+  const serverEnv = getServerEnv()
+  const configuredSecret = serverEnv.SESSION_SECRET
   if (configuredSecret) {
     return configuredSecret
   }
 
-  if (process.env.NODE_ENV === 'production') {
+  if (serverEnv.VITE_APP_ENV === 'production') {
     return null
   }
 
@@ -81,7 +83,7 @@ function getSessionConfig() {
       path: '/',
       httpOnly: true,
       sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production',
+      secure: getServerEnv().VITE_APP_ENV === 'production',
     },
   }
 
@@ -89,8 +91,9 @@ function getSessionConfig() {
 }
 
 function getFeishuCredentials() {
-  const appId = process.env.FEISHU_APP_ID?.trim()
-  const appSecret = process.env.FEISHU_APP_SECRET?.trim()
+  const serverEnv = getServerEnv()
+  const appId = serverEnv.VITE_FEISHU_APP_ID
+  const appSecret = serverEnv.FEISHU_APP_SECRET
 
   if (!appId || !appSecret) {
     return null
@@ -206,7 +209,7 @@ export const Route = createFileRoute('/api/auth/feishu/session')({
         const credentials = getFeishuCredentials()
         if (!credentials) {
           return Response.json(
-            { message: 'Missing FEISHU_APP_ID or FEISHU_APP_SECRET' },
+            { message: 'Missing VITE_FEISHU_APP_ID or FEISHU_APP_SECRET' },
             { status: 500 },
           )
         }
