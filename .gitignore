@@ -9,5 +9,11 @@ count.txt
 .output
 .vinxi
 todos.json
-.env*
+
+# ignore real env files
+.env
+.env.*
+
+# keep examples
 !.env.example
+!.env*.example
