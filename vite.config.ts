@@ -8,8 +8,9 @@ import viteTsConfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
-  const enableReactCompiler =
-    env.VITE_REACT_COMPILER === 'true' || env.VITE_REACT_COMPILER === '1'
+  // 默认开启 React Compiler，除非显式设置 VITE_REACT_COMPILER=false 或 0
+  const enableReactCompiler = !env.VITE_REACT_COMPILER ||
+    (env.VITE_REACT_COMPILER !== 'false' && env.VITE_REACT_COMPILER !== '0')
 
   return {
     plugins: [
