@@ -11,6 +11,7 @@ import {
   Scripts,
 } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
+import { FeishuAuthBootstrap } from '@/app/integration/feishu-auth'
 import { JotaiProvider } from '@/app/integration/jotai'
 import appCss from '@/app/styles/base.css?url'
 import { StaticAlertDialog } from '@/features/alert/alert-dialog-helper'
@@ -57,7 +58,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body
+        style={{
+          WebkitTextSizeAdjust: '100%',
+        }}
+        suppressHydrationWarning
+      >
         {/* Base UI */}
         <div className="isolate">
           <TanStackDevtools
@@ -77,6 +83,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           />
           <ThemeProvider>
             <JotaiProvider>
+              <FeishuAuthBootstrap />
               {children}
               <RootToaster />
               <StaticAlertDialog />

@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as BaseRouteRouteImport } from './routes/_base/route'
 import { Route as BaseIndexRouteImport } from './routes/_base/index'
+import { Route as ApiAuthFeishuSessionRouteImport } from './routes/api/auth/feishu/session'
 
 const BaseRouteRoute = BaseRouteRouteImport.update({
   id: '/_base',
@@ -21,28 +22,37 @@ const BaseIndexRoute = BaseIndexRouteImport.update({
   path: '/',
   getParentRoute: () => BaseRouteRoute,
 } as any)
+const ApiAuthFeishuSessionRoute = ApiAuthFeishuSessionRouteImport.update({
+  id: '/api/auth/feishu/session',
+  path: '/api/auth/feishu/session',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof BaseIndexRoute
+  '/api/auth/feishu/session': typeof ApiAuthFeishuSessionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof BaseIndexRoute
+  '/api/auth/feishu/session': typeof ApiAuthFeishuSessionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_base': typeof BaseRouteRouteWithChildren
   '/_base/': typeof BaseIndexRoute
+  '/api/auth/feishu/session': typeof ApiAuthFeishuSessionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/api/auth/feishu/session'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/_base' | '/_base/'
+  to: '/' | '/api/auth/feishu/session'
+  id: '__root__' | '/_base' | '/_base/' | '/api/auth/feishu/session'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   BaseRouteRoute: typeof BaseRouteRouteWithChildren
+  ApiAuthFeishuSessionRoute: typeof ApiAuthFeishuSessionRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -61,6 +71,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BaseIndexRouteImport
       parentRoute: typeof BaseRouteRoute
     }
+    '/api/auth/feishu/session': {
+      id: '/api/auth/feishu/session'
+      path: '/api/auth/feishu/session'
+      fullPath: '/api/auth/feishu/session'
+      preLoaderRoute: typeof ApiAuthFeishuSessionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -78,6 +95,7 @@ const BaseRouteRouteWithChildren = BaseRouteRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   BaseRouteRoute: BaseRouteRouteWithChildren,
+  ApiAuthFeishuSessionRoute: ApiAuthFeishuSessionRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
