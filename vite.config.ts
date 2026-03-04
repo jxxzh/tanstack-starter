@@ -9,13 +9,28 @@ import viteTsConfigPaths from 'vite-tsconfig-paths'
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   // 默认开启 React Compiler，除非显式设置 VITE_REACT_COMPILER=false 或 0
-  const enableReactCompiler = !env.VITE_REACT_COMPILER ||
+  const enableReactCompiler =
+    !env.VITE_REACT_COMPILER ||
     (env.VITE_REACT_COMPILER !== 'false' && env.VITE_REACT_COMPILER !== '0')
 
   return {
     plugins: [
       devtools(),
-      nitro(),
+      nitro({
+        rollupConfig: {
+          onwarn(warning, warn) {
+            const isClientDirectiveFromDependencies =
+              warning.code === 'MODULE_LEVEL_DIRECTIVE' &&
+              warning.id?.includes('node_modules')
+
+            if (isClientDirectiveFromDependencies) {
+              return
+            }
+
+            warn(warning)
+          },
+        },
+      }),
       // this is the plugin that enables path aliases
       viteTsConfigPaths({
         projects: ['./tsconfig.json'],
