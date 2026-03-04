@@ -15,7 +15,8 @@ This project now supports Feishu workbench H5 login bootstrap:
 
 ### Server
 
-- `VITE_FEISHU_APP_ID`: Feishu app id (`cli_...`) for JSAPI and server code exchange.
+- `FEISHU_APP_ID`: Feishu app id (`cli_...`) for server code exchange (recommended).
+- `VITE_FEISHU_APP_ID`: Optional server fallback app id for compatibility.
 - `FEISHU_APP_SECRET`: Feishu app secret.
 - `SESSION_SECRET`: Session encryption secret (required in production, recommend 32+ chars).
 

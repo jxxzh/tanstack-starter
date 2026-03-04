@@ -10,6 +10,7 @@ interface FeishuAuthErrorResult {
 
 interface FeishuRequestAccessOptions {
   appID: string
+  appId?: string
   scopeList: string[]
   state?: string
   success: (result: FeishuAuthSuccessResult) => void

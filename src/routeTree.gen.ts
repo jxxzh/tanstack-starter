@@ -9,10 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BaseRouteRouteImport } from './routes/_base/route'
 import { Route as BaseIndexRouteImport } from './routes/_base/index'
 import { Route as ApiAuthFeishuSessionRouteImport } from './routes/api/auth/feishu/session'
 
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BaseRouteRoute = BaseRouteRouteImport.update({
   id: '/_base',
   getParentRoute: () => rootRouteImport,
@@ -30,33 +36,44 @@ const ApiAuthFeishuSessionRoute = ApiAuthFeishuSessionRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof BaseIndexRoute
+  '/auth': typeof AuthRoute
   '/api/auth/feishu/session': typeof ApiAuthFeishuSessionRoute
 }
 export interface FileRoutesByTo {
+  '/auth': typeof AuthRoute
   '/': typeof BaseIndexRoute
   '/api/auth/feishu/session': typeof ApiAuthFeishuSessionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_base': typeof BaseRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/_base/': typeof BaseIndexRoute
   '/api/auth/feishu/session': typeof ApiAuthFeishuSessionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/auth/feishu/session'
+  fullPaths: '/' | '/auth' | '/api/auth/feishu/session'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/auth/feishu/session'
-  id: '__root__' | '/_base' | '/_base/' | '/api/auth/feishu/session'
+  to: '/auth' | '/' | '/api/auth/feishu/session'
+  id: '__root__' | '/_base' | '/auth' | '/_base/' | '/api/auth/feishu/session'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   BaseRouteRoute: typeof BaseRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   ApiAuthFeishuSessionRoute: typeof ApiAuthFeishuSessionRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_base': {
       id: '/_base'
       path: ''
@@ -95,6 +112,7 @@ const BaseRouteRouteWithChildren = BaseRouteRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   BaseRouteRoute: BaseRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   ApiAuthFeishuSessionRoute: ApiAuthFeishuSessionRoute,
 }
 export const routeTree = rootRouteImport

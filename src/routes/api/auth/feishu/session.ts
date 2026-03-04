@@ -9,9 +9,6 @@ import {
 import { z } from 'zod'
 import { getServerEnv } from '@/shared/config/env.server'
 
-const DEV_SESSION_SECRET =
-  'dev-only-feishu-session-secret-change-me-before-production'
-
 const feishuSessionDataSchema = z.object({
   openId: z.string().optional(),
   userId: z.string().optional(),
@@ -55,22 +52,9 @@ type FeishuUserResponse = {
 
 let feishuClient: lark.Client | null = null
 
-function getSessionSecret() {
-  const serverEnv = getServerEnv()
-  const configuredSecret = serverEnv.SESSION_SECRET
-  if (configuredSecret) {
-    return configuredSecret
-  }
-
-  if (serverEnv.VITE_APP_ENV === 'production') {
-    return null
-  }
-
-  return DEV_SESSION_SECRET
-}
-
 function getSessionConfig() {
-  const secret = getSessionSecret()
+  const serverEnv = getServerEnv()
+  const secret = serverEnv.SESSION_SECRET
   if (!secret) {
     return null
   }
@@ -209,7 +193,10 @@ export const Route = createFileRoute('/api/auth/feishu/session')({
         const credentials = getFeishuCredentials()
         if (!credentials) {
           return Response.json(
-            { message: 'Missing VITE_FEISHU_APP_ID or FEISHU_APP_SECRET' },
+            {
+              message:
+                'Missing FEISHU_APP_ID (or VITE_FEISHU_APP_ID) or FEISHU_APP_SECRET',
+            },
             { status: 500 },
           )
         }

@@ -6,7 +6,16 @@ const FEISHU_SDK_SRC =
   'https://lf-scm-cn.feishucdn.com/lark/op/h5-js-sdk-1.5.38.js'
 const FEISHU_AUTH_ENDPOINT = '/api/auth/feishu/session'
 const FEISHU_UA_PATTERN = /(Lark|Feishu)/i
+const AUTH_ROUTE_PATH = '/auth'
 const REQUEST_ACCESS_LOW_VERSION_ERRNO = 103
+const REQUEST_ACCESS_INVALID_REDIRECT_ERRNO = 20029
+const REQUEST_AUTH_CODE_INVALID_URL_ERRNO = 10236
+
+type FeishuAuthError = {
+  errno?: number
+  errMsg?: string
+  errString?: string
+}
 
 let bootstrapPromise: Promise<void> | null = null
 
@@ -25,6 +34,76 @@ function parseScopeList(scope?: string) {
     .filter((item) => item.length > 0)
 
   return scopeList.length > 0 ? scopeList : ['contact:user.base:readonly']
+}
+
+function resolveAuthRouteTargetPath(redirectPath: string | null) {
+  if (
+    !redirectPath ||
+    !redirectPath.startsWith('/') ||
+    redirectPath.startsWith(AUTH_ROUTE_PATH)
+  ) {
+    return '/'
+  }
+
+  try {
+    const normalizedUrl = new URL(redirectPath, window.location.origin)
+    return `${normalizedUrl.pathname}${normalizedUrl.search}`
+  } catch {
+    return '/'
+  }
+}
+
+function normalizeBootstrapLocation() {
+  if (window.location.pathname === AUTH_ROUTE_PATH) {
+    const searchParams = new URLSearchParams(window.location.search)
+    const targetPath = resolveAuthRouteTargetPath(searchParams.get('redirect'))
+    const currentPathWithSearch = `${window.location.pathname}${window.location.search}`
+
+    if (targetPath !== currentPathWithSearch) {
+      window.location.replace(targetPath)
+      return false
+    }
+  }
+
+  if (window.location.hash) {
+    window.history.replaceState(
+      null,
+      '',
+      `${window.location.pathname}${window.location.search}`,
+    )
+  }
+
+  return true
+}
+
+function formatFeishuAuthError(prefix: string, error?: FeishuAuthError) {
+  const details = [
+    error?.errno ? `errno=${error.errno}` : null,
+    error?.errMsg || null,
+    error?.errString || null,
+  ]
+    .filter(Boolean)
+    .join(', ')
+
+  return details ? `${prefix}: ${details}` : prefix
+}
+
+function isRedirectUrlConfigError(error?: FeishuAuthError) {
+  const text = `${error?.errMsg ?? ''} ${error?.errString ?? ''}`.toLowerCase()
+
+  return (
+    error?.errno === REQUEST_ACCESS_INVALID_REDIRECT_ERRNO ||
+    error?.errno === REQUEST_AUTH_CODE_INVALID_URL_ERRNO ||
+    text.includes('invalid redirect uri') ||
+    text.includes('invalid url')
+  )
+}
+
+function getRedirectUrlConfigHint() {
+  const currentUrl =
+    typeof window === 'undefined' ? 'unknown' : window.location.href
+
+  return `Please verify Feishu Web App settings: H5 trusted domain, web app home page URL, and redirect URL allowlist. Current URL: ${currentUrl}`
 }
 
 function loadFeishuSdk() {
@@ -88,10 +167,17 @@ function requestAccessCodeWithRequestAuthCode(appId: string) {
         resolve(result.code)
       },
       fail: (error) => {
+        if (isRedirectUrlConfigError(error)) {
+          reject(
+            new Error(
+              `${formatFeishuAuthError('requestAuthCode failed', error)}. ${getRedirectUrlConfigHint()}`,
+            ),
+          )
+          return
+        }
+
         reject(
-          new Error(
-            error.errString || error.errMsg || 'requestAuthCode failed',
-          ),
+          new Error(formatFeishuAuthError('requestAuthCode failed', error)),
         )
       },
     })
@@ -104,8 +190,29 @@ async function requestAccessCode(appId: string, scopeList: string[]) {
   }
 
   return new Promise<string>((resolve, reject) => {
+    const fallbackToRequestAuthCode = async (error: FeishuAuthError) => {
+      if (!window.tt?.requestAuthCode) {
+        reject(new Error(formatFeishuAuthError('requestAccess failed', error)))
+        return
+      }
+
+      try {
+        const code = await requestAccessCodeWithRequestAuthCode(appId)
+        resolve(code)
+      } catch (fallbackError) {
+        reject(
+          new Error(
+            `${formatFeishuAuthError('requestAccess failed', error)}; ${String(
+              fallbackError,
+            )}`,
+          ),
+        )
+      }
+    }
+
     window.tt?.requestAccess?.({
       appID: appId,
+      appId,
       scopeList,
       success: (result) => {
         if (!result?.code) {
@@ -115,21 +222,22 @@ async function requestAccessCode(appId: string, scopeList: string[]) {
 
         resolve(result.code)
       },
-      fail: async (error) => {
-        if (error.errno === REQUEST_ACCESS_LOW_VERSION_ERRNO) {
-          try {
-            const code = await requestAccessCodeWithRequestAuthCode(appId)
-            resolve(code)
-            return
-          } catch (fallbackError) {
-            reject(fallbackError)
-            return
-          }
+      fail: (error) => {
+        if (isRedirectUrlConfigError(error)) {
+          reject(
+            new Error(
+              `${formatFeishuAuthError('requestAccess failed', error)}. ${getRedirectUrlConfigHint()}`,
+            ),
+          )
+          return
         }
 
-        reject(
-          new Error(error.errMsg || error.errString || 'requestAccess failed'),
-        )
+        if (error.errno === REQUEST_ACCESS_LOW_VERSION_ERRNO) {
+          void fallbackToRequestAuthCode(error)
+          return
+        }
+
+        void fallbackToRequestAuthCode(error)
       },
     })
   })
@@ -173,6 +281,10 @@ async function runFeishuAuthBootstrap() {
   const appId = clientEnv.VITE_FEISHU_APP_ID
 
   if (!appId || !isFeishuContainer()) {
+    return
+  }
+
+  if (!normalizeBootstrapLocation()) {
     return
   }
 
