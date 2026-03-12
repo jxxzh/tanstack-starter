@@ -51,3 +51,18 @@
 ## Important Constraints
 
 - '/src/shared/components/ui'文件夹存放的是Shadcn组件代码，如要调整样式，推荐通过"className"+"cn"的方式；如果确实要修改，请说明原因并获得允许
+
+<!-- intent-skills:start -->
+# Skill mappings — when working in these areas, load the linked skill file into context.
+skills:
+  - task: "做 TanStack DB / React DB 的集合、实时查询和数据同步"
+    load: "/Users/huxichun/Documents/code/js/tanstack-start/node_modules/@tanstack/react-db/skills/react-db/SKILL.md"
+  - task: "在 TanStack Start 路由里预加载 collection，处理 TanStack DB 的框架集成"
+    load: "/Users/huxichun/Documents/code/js/tanstack-start/node_modules/.pnpm/@tanstack+react-db@0.1.76_react@19.2.4_typescript@5.9.3/node_modules/@tanstack/db/skills/meta-framework/SKILL.md"
+  - task: "设计 TanStack DB 的 collection、adapter、查询模型和 optimistic mutation"
+    load: "/Users/huxichun/Documents/code/js/tanstack-start/node_modules/.pnpm/@tanstack+react-db@0.1.76_react@19.2.4_typescript@5.9.3/node_modules/@tanstack/db/skills/db-core/SKILL.md"
+  - task: "配置或排查 TanStack Devtools 和 Vite Devtools 插件"
+    load: "/Users/huxichun/Documents/code/js/tanstack-start/node_modules/@tanstack/devtools-vite/skills/devtools-vite-plugin/SKILL.md"
+  - task: "写 TanStack Start 的服务端接口、Nitro 服务逻辑和部署相关代码"
+    load: "/Users/huxichun/Documents/code/js/tanstack-start/node_modules/nitro/skills/nitro/SKILL.md"
+<!-- intent-skills:end -->
